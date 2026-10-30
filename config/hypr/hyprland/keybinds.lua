@@ -2,14 +2,29 @@ local vars = require("variables")
 local fn   = require("hyprland.functions")
 
 -- глобалки шелла — shell:<имя>: их регистрирует тот шелл, что сейчас живой (demonshot, glyph), чего у него нет — молчит
--- Launcher: тап Super открывает на отпускании. Без interrupt-ов Super+1 тоже открыл бы лаунчер,
--- поэтому каждый Super+<key> не поглощая шлёт launcherInterrupt (bindin catchall сломан с 0.55)
-hl.bind("SUPER + SUPER_L", hl.dsp.global("shell:launcher"), { release = true })
--- после Super+<key> release-бинд выше не срабатывает и interrupt залипает — сбрасываем на нажатии Super
-hl.bind("SUPER_L", hl.dsp.global("shell:launcherArm"), { ignore_mods = true, non_consuming = true })
+-- Launcher: тап Super. С 0.57 бинды на сам модификатор не срабатывают ни на нажатие, ни на отпускание
+-- (hyprwm/Hyprland#15952, #15050), поэтому отпускание Super ловим опросом состояния клавиши, а не bindr.
+-- Без гашения Super+1 тоже открыл бы лаунчер — каждый Super+<key> не поглощая снимает тап.
+local superDown, superTap = false, false
+-- бинды на сами модификаторы в 0.57 тоже мертвы, поэтому Super+Shift/Ctrl/Alt смотрим здесь же
+local otherMods = { "Shift_L", "Shift_R", "Control_L", "Control_R", "Alt_L", "Alt_R" }
+hl.timer(function()
+    local down = hl.is_key_down("Super_L") or hl.is_key_down("Super_R")
+    if down then
+        if not superDown then superDown, superTap = true, true end
+        if superTap then
+            for _, sym in ipairs(otherMods) do
+                if hl.is_key_down(sym) then superTap = false break end
+            end
+        end
+    elseif superDown then
+        superDown = false
+        local tap = superTap
+        superTap = false
+        if tap then hl.dispatch(hl.dsp.global("shell:launcher")) end
+    end
+end, { timeout = 25, type = "repeat" })
 for _, key in ipairs({
-    -- secondary modifiers: cover every Super+Mod+key combo
-    "Control_L", "Control_R", "Shift_L", "Shift_R", "Alt_L", "Alt_R",
     -- workspaces
     "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
     -- Super+<key> binds below
@@ -21,7 +36,7 @@ for _, key in ipairs({
     "mouse:272", "mouse:273", "mouse:274", "mouse:275", "mouse:276", "mouse:277",
     "mouse_up", "mouse_down",
 }) do
-    hl.bind("SUPER + " .. key, hl.dsp.global("shell:launcherInterrupt"), { non_consuming = true })
+    hl.bind("SUPER + " .. key, function() superTap = false end, { non_consuming = true })
 end
 
 -- Misc

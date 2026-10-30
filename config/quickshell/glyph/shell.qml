@@ -92,18 +92,13 @@ ShellRoot {
         function onGameChanged() { Rules.motion(); Theme.apply(); }
     }
 
-    // тап Super — лаунчер на отпускании; любой Super+<key> по пути шлёт interrupt, и лаунчер не открывается
-    property bool interrupted: false
+    // тап Super — лаунчер. Гасит Super+<key> и решает, когда открывать, hyprland/keybinds.lua (опрос клавиши):
+    // глобалка отдаёт только pressed, без released, поэтому отпускание обрабатывается на стороне hypr
     Shortcut {
         name: "launcher"
         description: "лаунчер (тап Super)"
-        onReleased: {
-            if (!shell.interrupted) launcher.toggle();
-            shell.interrupted = false;
-        }
+        onPressed: launcher.toggle()
     }
-    Shortcut { name: "launcherArm"; description: "нажатие Super — сброс interrupt"; onPressed: shell.interrupted = false }
-    Shortcut { name: "launcherInterrupt"; description: "Super+<key> — не открывать лаунчер"; onPressed: shell.interrupted = true }
     // Super+Space (алтарь у demonshot) — deck, дашборд снизу: лаунчер и так на тапе Super
     Shortcut { name: "altar"; description: "deck: дашборд снизу"; onPressed: deck.toggle() }
     Shortcut { name: "quick"; description: "быстрые настройки"; onPressed: quick.toggle() }
