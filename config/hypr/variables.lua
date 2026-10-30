@@ -36,8 +36,8 @@ return {
     -- Touchpad
     touchpadDisableTyping      = false,
     touchpadScrollFactor       = 0.3,
-    gestureFingers             = 4,
-    workspaceSwipeFingers      = 3,
+    gestureFingers             = 3,
+    workspaceSwipeFingers      = 4,
     gestureFingersMore         = 5,
 
     -- Blur
@@ -104,7 +104,7 @@ return {
     kbWindowFullscreen         = "SUPER + F",
     kbWindowBorderedFullscreen = "SUPER + ALT + F",
     kbToggleWindowFloating     = "SUPER + ALT + space",
-    kbCloseWindow              = "SUPER + C",
+    kbCloseWindow              = "SUPER + Q",
 
     -- Special workspaces toggles
     kbSpecialWs                = "SUPER + S",
@@ -114,7 +114,7 @@ return {
     kbTodoWs                   = "SUPER + R",
 
     -- Apps
-    kbTerminal                 = "SUPER + Q",
+    kbTerminal                 = "SUPER + T",
     kbBrowser                  = "SUPER + W",
     kbEditor                   = "SUPER + SHIFT + K",
     kbFileExplorer             = "SUPER + E",

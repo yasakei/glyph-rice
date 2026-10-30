@@ -11,15 +11,15 @@ hl.config({
     },
 })
 
-hl.gesture({ fingers = vars.workspaceSwipeFingers, direction = "vertical", action = "workspace" })
-hl.gesture({ fingers = vars.gestureFingers, direction = "up", action = "special", workspace_name = "special" })
-hl.gesture({
-    fingers   = vars.gestureFingers,
-    direction = "down",
-    action    = function()
-        hl.dispatch(hl.dsp.workspace.toggle_special("special"))
-    end,
-})
+hl.gesture({ fingers = vars.workspaceSwipeFingers, direction = "horizontal", action = "workspace" })
+-- hl.gesture({ fingers = vars.gestureFingers, direction = "up", action = "special", workspace_name = "special" })
+-- hl.gesture({
+-- fingers   = vars.gestureFingers,
+-- direction = "down",
+-- action    = function()
+--      hl.dispatch(hl.dsp.workspace.toggle_special("special"))
+--  end,
+--})
 hl.gesture({
     fingers   = vars.gestureFingersMore,
     direction = "down",
