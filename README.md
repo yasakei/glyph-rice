@@ -4,6 +4,8 @@
 
 Black, white dots, one red. A sibling of [Demon's Shot](https://github.com/Nebelung-cloud/demons-shot-rice).
 
+My fork of [**glyph-rice**](https://github.com/Nebelung-cloud/glyph-rice) by [**Nebelung-cloud**](https://github.com/Nebelung-cloud) — the rice is his work, this copy just carries my own tweaks (see [Credits](#credits)).
+
 <br>
 
 ![Glyph desktop](screenshots/desktop.png)
@@ -52,7 +54,7 @@ Also: Hyprland (Lua), hypridle, kitty, fish, starship, fastfetch, btop, cava (do
 <h2 align="center">Install</h2>
 
 ```sh
-git clone https://github.com/Nebelung-cloud/glyph-rice ~/.local/share/glyph
+git clone https://github.com/yasakei/glyph-rice ~/.local/share/glyph
 ~/.local/share/glyph/install.sh                  # Arch: packages, services, symlinks
 ~/.local/share/glyph/install.sh --with telegram  # same, extras picked up front
 ~/.local/share/glyph/install.sh --links          # any distro: symlinks only
@@ -122,6 +124,21 @@ Fonts: Doto, Space Grotesk, Space Mono, JetBrains Mono Nerd Font.
 - [**Caelestia**](https://github.com/caelestia-dots/shell): the shell I used before; the deck and hardware detection follow it.
 
 <div align="center"><img src="assets/divider-matrix.svg" width="720" alt=""></div>
+
+<h2 align="center">Credits</h2>
+
+**Glyph** is made by [**Nebelung-cloud**](https://github.com/Nebelung-cloud): [glyph-rice](https://github.com/Nebelung-cloud/glyph-rice)
+and its sibling [Demon's Shot](https://github.com/Nebelung-cloud/demons-shot-rice). The shell, the launcher, the theme — all of it is his.
+This repository is my personal fork, kept under the same GPL-3.0 license; upstream is the place to look for the project itself.
+
+What my fork changes on top of upstream:
+
+- launcher: tap `Super` opens it again on Hyprland 0.57, where binds on the modifier key itself stopped firing —
+  the release is detected by polling the key state instead of `bindr` (`hypr/hyprland/keybinds.lua`)
+- gestures: workspace swipe horizontal, 4 fingers; 3 fingers for the special workspace
+- keys: `Super` `Q` closes a window, `Super` `T` opens the terminal
+
+<div align="center"><img src="assets/divider-dots.svg" width="720" alt=""></div>
 
 <h2 align="center">License</h2>
 
